@@ -66,6 +66,7 @@ Available Functions
 	
 ### Extra methods
 	command
+	aggregate
 	ensure_index
 	remove_index
 	remove_all_indexes
