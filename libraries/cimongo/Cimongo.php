@@ -470,9 +470,12 @@ class Cimongo extends Cimongo_extras {
          *
          *   @since v1.1.0
          */
-        public function limit($limit = FALSE) {
+        public function limit($limit = FALSE, $offset = FALSE) {
                 if ($limit && is_numeric($limit)) {
                         $this->limit = $limit;
+                }
+                if ($offset && is_numeric($offset)) {
+                        $this->offset = $offset;
                 }
                 return $this;
         }
