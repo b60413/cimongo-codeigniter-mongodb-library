@@ -298,7 +298,7 @@ class Cimongo extends Cimongo_extras {
          *
          *  @since v1.0.0
          */
-        public function count_all_results($collection = "") {
+        public function count_all_results($collection = "", $clear = TRUE) {
                 if (empty($collection)) {
                         show_error("In order to retreive a count of documents from MongoDB, a collection name must be passed", 500);
                 }
@@ -311,7 +311,9 @@ class Cimongo extends Cimongo_extras {
                 if ($this->offset !== FALSE) {
                         $cimongo_cursor->skip($this->offset);
                 }
-                $this->_clear();
+                if ($clear === TRUE) {
+                    $this->_clear();
+                }
                 return $cimongo_cursor->count(TRUE);
         }
 
