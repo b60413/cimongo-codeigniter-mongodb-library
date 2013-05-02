@@ -73,6 +73,42 @@ class Cimongo_extras extends Cimongo_base{
 			show_error("MongoDB failed: {$e->getMessage()}", 500);
 		}
 	}
+    
+    /**
+     *   Runs a MongoDB Aggregate Result Count.
+     *  See the MongoDB documentation for more usage scenarios:
+     *  http://docs.mongodb.org/manual/core/aggregation
+     *   @usage : $this->cimongo->aggregate('users', array(array('$project' => array('_id' => 1))));
+     *   @since v1.0.0
+     */
+    public function aggregate_count_all_results($collection = "", $options) {
+        if (empty($collection)) {
+            show_error("No Mongo collection selected to insert into", 500);
+        }
+        $tmp_options = array();
+        foreach ($options as $option) {
+            if (array_key_exists('$skip', $option) OR array_key_exists('$limit', $option))
+                continue;
+            
+            array_push($tmp_options, $option);
+        }
+        $group = array(
+            '$group' => array(
+                '_id' => 0,
+                'count' => array(
+                    '$sum' => 1
+                )
+            )
+        );
+        array_push($tmp_options, $group);
+        try{
+            $c = $this->db->selectCollection($collection);
+            $result = $c->aggregate($tmp_options);
+            return isset($result['result'][0]) ? $result['result'][0]['count'] : 0;
+        } catch (MongoException $e) {
+            show_error("MongoDB failed: {$e->getMessage()}", 500);
+        }
+    }
 
 	/**
 	 *	Ensure an index of the keys in a collection with optional parameters. To set values to descending order,
