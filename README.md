@@ -15,7 +15,8 @@ Available Functions
 
 ### Selecting Data
 
-	get					
+	get
+	get_one					
 	get_where		
 	
 	select				

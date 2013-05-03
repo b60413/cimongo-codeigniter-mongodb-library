@@ -78,6 +78,24 @@ class Cimongo extends Cimongo_extras {
         }
 
         /**
+         * Get One the documents based upon the passed parameters
+         *
+         * @since v1.0.0
+         */
+        public function get_one($collection = "") {
+                if (empty($collection)) {
+                        //FIXME theow exception instead show error
+                        show_error("In order to retreive documents from MongoDB, a collection name must be passed", 500);
+                }
+                
+                $result = $this->db->selectCollection($collection)->findOne($this->wheres, $this->selects);
+
+                $this->_clear();
+
+                return $result;
+        }
+
+        /**
          * Get the documents based upon the passed parameters
          *
          * @since v1.0.0
