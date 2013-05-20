@@ -432,7 +432,8 @@ class Cimongo extends Cimongo_extras {
                 }
                 try {
                         $options = array_merge(array("safe" => $this->query_safety, 'multiple' => FALSE), $options);
-                        $this->db->selectCollection($collection)->update($this->wheres, $this->updates, $options);
+                        $result = $this->db->selectCollection($collection)->update($this->wheres, $this->updates, $options);
+                        $this->_affected_count = intval($result['n']);
                         $this->_clear();
                         return TRUE;
                 } catch (MongoCursorException $e) {

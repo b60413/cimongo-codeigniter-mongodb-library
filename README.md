@@ -93,6 +93,7 @@ Available Functions
 	pull_all
 	pop
 	rename_field
+	affected_rows
 	
 	Author
 ------------------- 

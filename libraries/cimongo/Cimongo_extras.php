@@ -28,7 +28,7 @@ require_once('Cimongo_base.php');
  */
 
 class Cimongo_extras extends Cimongo_base{
-
+    protected $_affected_count;
 
 	/**
 	 * Construct a new Cimongo_extras
@@ -473,4 +473,13 @@ class Cimongo_extras extends Cimongo_base{
 		$this->updates['$rename'][] = array($old => $new);
 		return $this;
 	}
+    
+    /**
+     * Get Affected Rows Count
+     *
+     *  @since v1.0.0
+     */
+    public function affected_rows(){
+        return $this->_affected_count;
+    }
 }
