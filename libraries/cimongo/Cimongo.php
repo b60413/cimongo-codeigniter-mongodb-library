@@ -167,7 +167,15 @@ class Cimongo extends Cimongo_extras {
                 $this->_where_init('$or');
                 if (is_array($wheres) && count($wheres) > 0) {
                         foreach ($wheres as $wh => $val) {
-                                $this->wheres['$or'][] = array($wh => $val);
+                                if (is_array($val)) {
+                                        $arr = array();
+                                        foreach ($val as $wh2 => $val2) {
+                                                $arr[$wh2] = $val2;
+                                        }
+                                        $this->wheres['$or'][] = $arr;
+                                } else {
+                                        $this->wheres['$or'][] = array($wh => $val);
+                                }
                         }
                 }
                 return $this;
