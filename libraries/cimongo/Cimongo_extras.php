@@ -157,7 +157,7 @@ class Cimongo_extras extends Cimongo_base{
 		if (empty($keys) || !is_array($keys))	{
 			show_error("Index could not be removed from MongoDB Collection because no keys were specified", 500);
 		}
-		if ($this->db->{$collection}->deleteIndex($keys, $options) == TRUE){
+		if ($this->db->{$collection}->deleteIndex($keys) == TRUE){
 			$this->_clear();
 			return $this;
 		}
